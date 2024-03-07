@@ -9,23 +9,28 @@ struct ContentView: View {
         VStack {
             if let location = locationManager.location {
                 if let weather = weather {
-                    Text("날씨 정보를 정상적으로 획득!!!")
+                    WeatherView(weather: weather)
                 } else {
-                    ProgressView()
+                    LoadingView()
                         .task {
                             do {
                                 weather = try await weatherManager.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
                             } catch {
-                                Logger.log("날씨 정보 획득 실패: \(error.localizedDescription)")
+                                Logger.log("날씨 접근 에러: \(error)")
                             }
                         }
                 }
             } else {
-                WelcomeView()
-                    .environmentObject(locationManager)
+                if locationManager.isLoading {
+                    LoadingView()
+                } else {
+                    WelcomeView()
+                        .environmentObject(locationManager)
+                }
             }
-        }        .background(Color(hue: 0.656, saturation: 0.787, brightness: 0.354))
-            .preferredColorScheme(.dark)
+        }
+        .background(Color(hue: 0.656, saturation: 0.787, brightness: 0.354))
+        .preferredColorScheme(.dark)
     }
 }
 
