@@ -1,0 +1,37 @@
+import SwiftUI
+
+struct ContentView: View {
+    var weatherManager = WeatherManager()
+    @StateObject var locationManager = LocationManager()
+    @State var weather: ResponseBody?
+    
+    var body: some View {
+        VStack {
+            if let location = locationManager.location {
+                if let weather = weather {
+                    Text("날씨 정보를 정상적으로 획득!!!")
+                } else {
+                    ProgressView()
+                        .task {
+                            do {
+                                weather = try await weatherManager.getCurrentWeather(latitude: location.latitude, longitude: location.longitude)
+                            } catch {
+                                Logger.log("날씨 정보 획득 실패: \(error.localizedDescription)")
+                            }
+                        }
+                }
+            } else {
+                WelcomeView()
+                    .environmentObject(locationManager)
+            }
+        }        .background(Color(hue: 0.656, saturation: 0.787, brightness: 0.354))
+            .preferredColorScheme(.dark)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
