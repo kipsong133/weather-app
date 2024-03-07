@@ -6,7 +6,6 @@ struct WelcomeView: View {
     
     var body: some View {
         VStack {
-            // Text
             VStack(spacing: 20) {
                 Text("혼저옵서예")
                     .bold()
