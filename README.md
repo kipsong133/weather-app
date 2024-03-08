@@ -22,7 +22,7 @@ https://github.com/kipsong133/weather-app/assets/65879950/9220b355-688f-4dae-be7
 4. 프로젝트에 돌아와서 전역 범위에 아래와 같이 코드를 작성합니다.
 ~~저는 ENV.swift로 생성한 뒤, 해당 파일을 `.gitignore`를 통해서 관리하고 있습니다.~~
 ```swift
-let apiKey = "99cc84ad79eb6a3157e9e9ff13d2f1f2"
+let apiKey = "13ak47mm16hk6j3157t9e9zz13f2g5j9"
 ```
 
 ### 에셋 출처
